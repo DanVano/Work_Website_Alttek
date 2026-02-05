@@ -1,0 +1,557 @@
+/* ==========================================================
+   Alttek Website Core Styles
+   Core styling + responsive header/nav + hero bands
+   ========================================================== */
+
+/* ---------- Local font files (keep your existing font assets) ---------- */
+@font-face{
+  font-family: "Josefin Sans";
+  src: url("../fonts/josefinsans-italic-webfont.eot");
+  src:
+    url("../fonts/josefinsans-italic-webfont.eot") format("embedded-opentype"),
+    url("../fonts/josefinsans-italic-webfont.woff2") format("woff2"),
+    url("../fonts/josefinsans-italic-webfont.woff") format("woff"),
+    url("../fonts/josefinsans-italic-webfont.ttf") format("truetype"),
+    url("../fonts/josefinsans-italic-webfont.svg#Josefin Sans") format("svg");
+  font-weight: normal;
+  font-style: italic;
+}
+@font-face{
+  font-family: "Josefin Sans";
+  src: url("../fonts/josefinsans-regular-webfont.eot");
+  src:
+    url("../fonts/josefinsans-regular-webfont.eot") format("embedded-opentype"),
+    url("../fonts/josefinsans-regular-webfont.woff2") format("woff2"),
+    url("../fonts/josefinsans-regular-webfont.woff") format("woff"),
+    url("../fonts/josefinsans-regular-webfont.ttf") format("truetype"),
+    url("../fonts/josefinsans-regular-webfont.svg#Josefin Sans") format("svg");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face{
+  font-family: "Josefin Sans";
+  src: url("../fonts/josefinsans-semibold-webfont.eot");
+  src:
+    url("../fonts/josefinsans-semibold-webfont.eot") format("embedded-opentype"),
+    url("../fonts/josefinsans-semibold-webfont.woff2") format("woff2"),
+    url("../fonts/josefinsans-semibold-webfont.woff") format("woff"),
+    url("../fonts/josefinsans-semibold-webfont.ttf") format("truetype"),
+    url("../fonts/josefinsans-semibold-webfont.svg#josefin_sanssemibold") format("svg");
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face{
+  font-family: "Josefin Sans";
+  src: url("../fonts/josefinsans-thin-webfont.eot");
+  src:
+    url("../fonts/josefinsans-thin-webfont.eot") format("embedded-opentype"),
+    url("../fonts/josefinsans-thin-webfont.woff2") format("woff2"),
+    url("../fonts/josefinsans-thin-webfont.woff") format("woff"),
+    url("../fonts/josefinsans-thin-webfont.ttf") format("truetype"),
+    url("../fonts/josefinsans-thin-webfont.svg#josefin_sansthin") format("svg");
+  font-weight: 200;
+  font-style: normal;
+}
+
+/* Optional: same script font you already used (kept in-place for “no UI changes”) */
+@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap");
+
+/* ---------- Variables ---------- */
+:root{
+  --teal: #24677c;
+  --black: #000;
+  --dark: #0f0f0f;
+  --dark-2: #111;
+  --text: rgba(255,255,255,0.92);
+  --muted: rgba(255,255,255,0.70);
+
+  --container: 1200px;
+  --narrow: 920px;
+
+  --desktop-nav-h: 60px;
+
+  /* Desktop hero heights */
+  --hero-home-h: 400px;
+  --hero-interior-h: 140px;
+
+  /* Mobile (<=1024) hero height target for interior pages */
+  --hero-interior-min: 56px;
+}
+
+/* ---------- Base / reset ---------- */
+*{ box-sizing: border-box; }
+html{ height: 100%; }
+body{
+  margin: 0;
+  min-height: 100%;
+  background: var(--dark);
+  color: var(--text);
+  font-family: "Josefin Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.8;
+  letter-spacing: 0.02em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+img{ max-width: 100%; height: auto; display: block; }
+a{ color: var(--text); text-decoration: none; }
+a:hover{ opacity: 0.9; }
+
+p{
+  margin: 0 0 14px;
+  font-family: "Cardo", serif;
+  letter-spacing: normal;
+}
+h1, h2, h3{
+  margin: 0 0 14px;
+  letter-spacing: 0.03em;
+}
+h2{
+  font-size: 32px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+ul{ margin: 0; padding-left: 22px; }
+li{
+  margin: 0 0 10px;
+  font-family: "Cardo", serif;
+  letter-spacing: normal;
+}
+
+.container{
+  width: min(var(--container), calc(100% - 48px));
+  margin: 0 auto;
+}
+.content-narrow{
+  width: min(var(--narrow), 100%);
+  margin: 0 auto;
+  padding-top: 20px;
+}
+
+/* ---------- Header banner (BW-Grass.jpg) ---------- */
+.site-header{
+  position: relative;
+  height: 90px;
+  background-image: url("../img/hero/BW-Grass.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-color: transparent;
+}
+@media (max-width: 720px){
+  .site-header{ height: 80px; }
+}
+
+/* ---------- Mobile topbar (black bar + teal square button) ---------- */
+.topbar{
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 50px;
+  display: none; /* shown at <=1024 */
+  align-items: center;
+  background: var(--black);
+  border-bottom: 1px solid var(--black);
+  z-index: 50;
+}
+.topbar-spacer{ flex: 1; }
+
+.menu-toggle{
+  width: 50px;
+  height: 50px;
+  display: grid;
+  place-items: center;
+  background: var(--teal);
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+.menu-toggle:focus{ outline: none; }
+
+/* ---------- Desktop nav bar ---------- */
+.site-nav{
+  background: rgba(0,0,0,0.98);
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+}
+.nav-inner{
+  height: var(--desktop-nav-h);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.nav-links{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 26px;
+  align-items: center;
+  justify-content: center;
+}
+.nav-links a{
+  transform: translateY(7px); /* MENU TEXT DOWN: adjust here */
+  display: inline-block;
+  padding: 10px 0;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+}
+
+/* Active link underline (desktop + mobile) */
+.nav-links a.is-active,
+.mobile-nav a.is-active{
+  color: var(--teal);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 8px;
+}
+
+.nav-search{
+  position: absolute;
+  right: 18px;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+}
+.nav-search svg{
+  width: 18px;
+  height: 18px;
+  fill: var(--text);
+}
+.nav-search.is-active svg{ fill: var(--teal); }
+
+/* ---------- Mobile menu overlay ---------- */
+.mobile-nav{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: var(--dark-2);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-8px);
+  transition: opacity 220ms ease, transform 220ms ease;
+  z-index: 40;
+  overflow-y: auto;
+  padding-top: 60px; /* space for topbar area */
+}
+.mobile-nav-inner{ padding: 18px 0 40px; }
+.mobile-nav ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.mobile-nav a{
+  display: block;
+  padding: 16px 18px;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.mobile-nav li:first-child a{ border-top: 0; }
+
+body.nav-open{ overflow: hidden; }
+body.nav-open .mobile-nav{
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+/* ---------- Hero bands ---------- */
+.hero{
+  background: var(--teal);
+  color: #fff;
+}
+.hero__title{
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.05;
+  text-align: center;
+  margin: 0;
+}
+
+/* Home hero (custom) */
+.hero--home{
+  height: var(--hero-home-h);
+  display: flex;
+  align-items: center;
+}
+.home-hero-inner{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 18px;
+}
+.hero-logo{
+  width: min(560px, 85vw);
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,0.35));
+}
+.home-title{
+  font-size: 34px;
+  max-width: 980px;
+  padding: 0 18px;
+  transform: translateY(0%);
+}
+
+/* Interior hero (About / Technology Services / Contact / Search) */
+.hero--interior{
+  height: var(--hero-interior-h);
+  display: flex;
+  align-items: center;
+}
+.hero--interior .hero__title{
+  font-size: 62px;
+  transform: translateY(0%); /* PAGE TITLE vertical position (desktop) */
+  padding: 0 18px;
+}
+
+/* ---------- Sections / page body ---------- */
+.main{ background: var(--dark); }
+
+.page-section{ padding: 0 0 60px; }
+.page-section.tight-top{ padding-top: 16px; }
+
+.fancy-banner{
+  margin-top: 0;
+  padding: 0;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.fancy-text{
+  font-family: "Great Vibes", cursive;
+  font-size: clamp(24px, 3vw, 40px);
+  color: #ffffff;
+  text-shadow: 0 2px 6px rgba(0,0,0,.75);
+  letter-spacing: 0.3px;
+}
+
+/* Principles list (Home) */
+.principles{
+  margin-top: 14px;
+  padding-left: 20px;
+}
+.principles li strong{
+  font-family: "Josefin Sans", sans-serif;
+  letter-spacing: 0.03em;
+}
+
+/* ---------- Contact layout ---------- */
+.contact-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  align-items: start;
+}
+.contact-card{
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 14px;
+  padding: 18px;
+}
+.contact-card h2{ font-size: 26px; margin-bottom: 10px; }
+.contact-meta p{ margin-bottom: 8px; }
+.contact-meta a{ text-decoration: underline; }
+
+.contact-form{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.contact-form .full{ grid-column: 1 / -1; }
+
+label{
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  margin-bottom: 6px;
+}
+input, textarea{
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(0,0,0,0.35);
+  color: var(--text);
+  font-size: 16px;
+  font-family: "Josefin Sans", sans-serif;
+}
+textarea{ min-height: 140px; resize: vertical; }
+
+button{
+  appearance: none;
+  border: 0;
+  border-radius: 10px;
+  padding: 12px 16px;
+  background: #fff;
+  color: #111;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+button:hover{ opacity: 0.92; }
+
+.hp-field{
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+}
+
+@media (max-width: 900px){
+  .contact-grid{ grid-template-columns: 1fr; }
+  .contact-form{ grid-template-columns: 1fr; }
+}
+
+/* ---------- Search page ---------- */
+.search-wrap{
+  width: min(900px, 100%);
+  margin: 0 auto;
+}
+.search-box{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 18px 0 12px;
+}
+.search-box input[type="search"]{ flex: 1; min-width: 200px; }
+
+.search-results{ margin-top: 18px; }
+.search-result{
+  padding: 14px 0;
+  border-top: 1px solid rgba(255,255,255,0.12);
+}
+.search-result a{ font-weight: 800; text-decoration: underline; }
+.muted{ color: var(--muted); }
+
+/* ---------- Footer (3 columns, no social icons) ---------- */
+.site-footer{
+  background: #000;
+  border-top: 1px solid rgba(255,255,255,0.10);
+}
+.footer-inner{
+  padding: 40px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 22px;
+}
+.site-footer h3{
+  font-size: 16px;
+  margin: 0 0 8px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.site-footer ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.site-footer li{ margin: 0 0 10px; }
+.site-footer a{ color: var(--text); }
+.site-footer a:hover{ text-decoration: underline; }
+.is-disabled{ pointer-events: none; opacity: 0.65; text-decoration: none !important; }
+.footer-col--copyright p{ margin-bottom: 8px; }
+
+@media (max-width: 900px){
+  .footer-inner{ grid-template-columns: 1fr; }
+}
+
+/* ---------- Small helpers ---------- */
+.sr-only{
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* ==========================================================
+   Responsive rules (<=1024)
+   - show topbar + hide desktop nav
+   - mobile hero behavior
+   - chevron arrow drawing
+   ========================================================== */
+@media (max-width: 1024px){
+  /* Topbar shown, desktop nav hidden */
+  .topbar{ display: flex; }
+  .site-nav{ display: none; }
+
+  /* Home hero becomes auto-height on smaller screens */
+  .home-title{
+    transform: none;
+    font-size: clamp(22px, 4.2vw, 34px);
+  }
+  .hero--home{
+    height: auto;
+    padding: 22px 0 26px;
+  }
+
+  /* Interior hero becomes auto-height + smaller band */
+  .hero--interior{
+    height: auto;
+    min-height: var(--hero-interior-min);
+    padding: 6px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero--interior .hero__title{
+    transform: translateY(2px);
+    font-size: 40px;
+    padding: 0 16px;
+  }
+
+  /* Mobile Main menu arrow */
+  .chevron{
+    width: 26px;
+    height: 26px;
+    position: relative;
+    transform: translateX(-4px);
+  }
+  .chevron::before,
+  .chevron::after{
+    content:"";
+    position:absolute;
+    top: 4px;
+    width: 20px;
+    height: 4px;
+    background: #000;
+  }
+  .chevron::before{
+    left: 0;
+    transform: rotate(45deg);
+    transform-origin: left center;
+  }
+  .chevron::after{
+    right: 0;
+    transform: rotate(-45deg);
+    transform-origin: right center;
+  }
+  body.nav-open .chevron{
+    transform: translateX(-4px) rotate(180deg);
+  }
+}
+
+@media (max-width: 720px){
+  .hero--interior .hero__title{ font-size: 32px; }
+}
+@media (max-width: 480px){
+  .hero--interior .hero__title{ font-size: 28px; }
+}
