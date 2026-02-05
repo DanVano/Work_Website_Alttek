@@ -12,6 +12,6 @@ This is a simple static website for Alttek Enterprises Ltd. It includes:
 ## Goals of the rebuild
 - Remove Weebly specific HTML/CSS and replace it with standard semantic structure
 - Move off of Weebly hosting to save the company a monthly fee
-- Keep the visual look as close as possible to the original site
+- Keep the visual look as close as possible to the original site with a modernized touch
 - Make responsive behavior predictable at common breakpoints (desktop, tablet, mobile)
 - Keep the CSS organized and easier to maintain going forward
